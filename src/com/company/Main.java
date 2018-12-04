@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class Main {
 
+
+
     public static void main(String[] args) {
 
         int numberOfNumbers = 5;
@@ -253,5 +255,8 @@ public class Main {
         System.out.println("7. Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти " +
                 "первое из них.");
     }
+
+
+
 }
 

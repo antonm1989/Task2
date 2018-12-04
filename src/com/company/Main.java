@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Main {
 
 
-
     public static void main(String[] args) {
 
         int numberOfNumbers = 5;
@@ -254,9 +253,73 @@ public class Main {
 
         System.out.println("7. Найти число, состоящее только из различных цифр. Если таких чисел несколько, найти " +
                 "первое из них.");
+
+        String onlyDiffirentNumbers = "";
+        boolean isOnlyDifferentDigits;
+
+        for (int i = 0; i < enteredNumbersStringArray.length; i++) {
+
+            isOnlyDifferentDigits = true;
+
+            byte bytes[] = new byte[enteredNumbersStringArray[i].length()];
+
+            for (int i1 = 0; i1 < enteredNumbersStringArray[i].length(); i1++) {
+
+                bytes[i1] = enteredNumbersStringArray[i].getBytes()[i1];
+            }
+
+
+            for (int j = 0; j < 10; j++) {
+                if (counterArray[i][j] >= 2) {
+                    isOnlyDifferentDigits = false;
+                    break;
+
+                }
+
+            }
+            if (isOnlyDifferentDigits) {
+                onlyDiffirentNumbers += enteredNumbersStringArray[i];
+                break;
+            }
+        }
+
+        System.out.println("число, состоящее только из различных цифр: " + onlyDiffirentNumbers);
+        System.out.println();
+
+        System.out.println("8. Вывести числа от 1 до k в виде матрицы N x N слева направо и сверху вниз.");
+        System.out.println("введите матрицу чисел NxN в одной строке с пробелами: ");
+        String enteredMatrixString = "";
+        enteredMatrixString = scanner.nextLine();
+        int matrix[][] = getIntegerMatrix(enteredMatrixString);
+        for (int i = 0; i < (int) (Math.sqrt(matrix.length)); i++) {
+            for (int j = 0; j < (int) (Math.sqrt(matrix.length)); j++) {
+                System.out.println(matrix[i][j]);
+            }
+            System.out.println();
+        }
+
+        System.out.println(Arrays.toString(matrix));
+
+
     }
 
+    static int[][] getIntegerMatrix(String enteredString) {
 
+        String enteredNumbersStringArray[] = enteredString.trim().split("\\s+");
+//        double matrixSize = enteredNumbersStringArray.length;
+        int matrixSize=(int)Math.sqrt(enteredNumbersStringArray.length);
+        int matrix[][] = new int[matrixSize][matrixSize];
 
+        int k = 0;
+        for (int i = 0; i < matrixSize; i++) {
+            for (int j = 0; j < matrixSize; j++) {
+                matrix[i][j] = Integer.parseInt(enteredNumbersStringArray[k]);
+                k++;
+                if (k > enteredNumbersStringArray.length) {
+                    break;
+                }
+            }
+        }
+        return matrix;
+    }
 }
-

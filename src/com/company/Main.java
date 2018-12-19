@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -291,14 +292,71 @@ public class Main {
         String enteredMatrixString = "";
         enteredMatrixString = scanner.nextLine();
         int matrix[][] = getIntegerMatrix(enteredMatrixString);
-        for (int i = 0; i < (int) (Math.sqrt(matrix.length)); i++) {
-            for (int j = 0; j < (int) (Math.sqrt(matrix.length)); j++) {
-                System.out.println(matrix[i][j]);
-            }
-            System.out.println();
+
+        for (int i = 0; i < matrix.length; i++) {
+            System.out.println(Arrays.toString(matrix[i]));
         }
 
-        System.out.println(Arrays.toString(matrix));
+        System.out.println();
+        System.out.println("9.Ввести с консоли n-размерность матрицы a [n] [n]. Задать значения элемен-\n" +
+                "тов матрицы в интервале значений от -n до n с помощью датчика случайных чи-\n" +
+                "сел:\n");
+        int matrixSize = scanner.nextInt();
+        matrix = new int[matrixSize][matrixSize];
+        for (int i = 0; i < matrixSize; i++) {
+            for (int j = 0; j < matrixSize; j++) {
+                matrix[i][j] = (int) ((Math.random() * (matrixSize + matrixSize + 1)) - matrixSize);
+            }
+        }
+        System.out.println();
+        for (int i = 0; i < matrixSize; i++) {
+            System.out.println(Arrays.toString(matrix[i]));
+        }
+        System.out.println();
+        System.out.println("9.1. Упорядочить строки матрицы в порядке возрастания значений.");
+        System.out.println();
+        for (int k = 0; k < matrixSize; k++) {
+            for (int i = 0; i < matrixSize; i++) {
+                int min = matrix[k][i];
+                int min_i = i;
+                for (int j = i + 1; j < matrixSize; j++) {
+                    if (matrix[k][j] < min) {
+                        min = matrix[k][j];
+                        min_i = j;
+                    }
+                }
+                if (i != min_i) {
+                    int tmp = matrix[k][i];
+                    matrix[k][i] = matrix[k][min_i];
+                    matrix[k][min_i] = tmp;
+                }
+            }
+            System.out.println(Arrays.toString(matrix[k]));
+        }
+
+        System.out.println();
+        System.out.println("Упорядочить столбцы матрицы в порядке возрастания значений.");
+        System.out.println();
+        for (int k = 0; k < matrixSize; k++) {
+            for (int i = 0; i < matrixSize; i++) {
+                int min = matrix[i][k];
+                int min_i = i;
+                for (int j = i + 1; j < matrixSize; j++) {
+                    if (matrix[j][k] < min) {
+                        min = matrix[j][k];
+                        min_i = j;
+                    }
+                }
+                if (i != min_i) {
+                    int tmp = matrix[i][k];
+                    matrix[k][i] = matrix[min_i][k];
+                    matrix[min_i][k] = tmp;
+                }
+            }
+        }
+        for (int k = 0; k < matrixSize; k++) {
+            System.out.println(Arrays.toString(matrix[k]));
+        }
 
 
     }
@@ -306,8 +364,7 @@ public class Main {
     static int[][] getIntegerMatrix(String enteredString) {
 
         String enteredNumbersStringArray[] = enteredString.trim().split("\\s+");
-//        double matrixSize = enteredNumbersStringArray.length;
-        int matrixSize=(int)Math.sqrt(enteredNumbersStringArray.length);
+        int matrixSize = (int) Math.sqrt(enteredNumbersStringArray.length);
         int matrix[][] = new int[matrixSize][matrixSize];
 
         int k = 0;
@@ -315,7 +372,7 @@ public class Main {
             for (int j = 0; j < matrixSize; j++) {
                 matrix[i][j] = Integer.parseInt(enteredNumbersStringArray[k]);
                 k++;
-                if (k > enteredNumbersStringArray.length) {
+                if (k > (enteredNumbersStringArray.length - 1)) {
                     break;
                 }
             }
